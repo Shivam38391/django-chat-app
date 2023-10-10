@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+<div class="p-4">
+
+
+  <h3 class="text-center">
+    Talk Now Clone
+    <small class="text-muted">Using django and WebRTC</small>
+  </h3>
+
+
+  <p class="lead text-center">
+    LOGIN PAGE
+  </p>
+
+  {% if msg %}
+
+    <p class="danger">{{msg}}</p>
+    
+  {% endif %}
+
+
+  <form action="" method="post">
+    {% csrf_token %}
+  
+      <input class="form-control" type="text" name="username" placeholder="Enter Username">
+      <br>
+      <input class="form-control" type="password" name="password" placeholder="Enter Password">
+
+        <br>
+  
+<button type="submit">Login</button>
+  </form>
+
+
+</div>
+
+     
+
+
+
+
+
+
+    
+{% endblock content %}
+    

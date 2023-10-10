@@ -1,0 +1,63 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+<div class="p-4">
+
+
+  <h3 class="text-center">
+    Talk Now Clone
+    <small class="text-muted">Using django and WebRTC</small>
+  </h3>
+
+
+  <p class="lead text-center">
+    Plaese Register YourSelf
+  </p>
+
+
+  <form action="" method="post">
+    {% csrf_token %}
+  
+  
+  {% for field in form %}
+
+  {% if field.errors %}
+    {{field}}
+    <small class="danger"> {{field.errors}}  </small>
+
+  
+  {% else %}
+      {{ field }}
+      <br>
+
+  {% endif %}
+<!-- {{field}}
+<br> -->
+
+  {% endfor %}
+
+  
+<button type="submit">Register</button>
+  </form>
+
+
+</div>
+
+     
+
+
+
+
+
+
+    
+{% endblock content %}
+    

@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buyer Free Messages</title>
+    <!-- bootstrap css -->
+    <link href="{% static 'vendor/css/bootstrap.css' %}" rel="stylesheet">
+    <!-- floating labels css -->
+    <!-- <link href="vendor/css/floating-labels.css" rel="stylesheet"> -->
+    <!-- Custom css -->
+    <!-- <link href='{% static "assets/css/style.css" %}' rel="stylesheet"> -->
+    <!-- Google Sans font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <script src="{% static 'vendor/js/bootstrap.bundle.js' %}"></script>
+</head>
+
+
+<body>
+
+
+    <section style="background-color: #82f0e1;">
+        <div class="container py-5">
+      
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-4">
+      
+
+
+                <div class="card ">
+
+
+{% block content %}
+    
+{% endblock content %}
+    
+                    
+                  </div>
+                    
+
+      
+            </div>
+          </div>
+      
+        </div>
+      </section>
+
+
+
+    <!-- Jquery  -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- Bootstrap js -->
+    <script src="{% static 'vendor/js/bootstrap.bundle.js' %}"></script>
+
+</body>
+
+</html>
