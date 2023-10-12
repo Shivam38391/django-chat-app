@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
-
-from .forms import UserForm
+from .models import Profile
+from .forms import ProfileForm, UserForm
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -57,3 +57,21 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('login')
+
+
+
+def update(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    user = request.user
+    # username = request.user.username
+    profile = Profile.objects.get(user=user)
+    form = ProfileForm(instance = profile)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect("update")
+    context = {"form": form}
+    
+    return render(request, "chatapp/update-profile.html", context )
