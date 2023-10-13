@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from .models import Profile
 from .forms import ProfileForm, UserForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 
@@ -75,3 +76,15 @@ def update(request):
     context = {"form": form}
     
     return render(request, "chatapp/update-profile.html", context )
+
+
+
+def suggestions(request):
+    all_user = get_user_model()
+    user = request.user
+    
+    profile = Profile.objects.get(user=user)
+    profile_friends = profile.friends.all()
+    suggested_friends = all_user.objects.exclude(profile__friends__in =profile_friends ).exclude(profiles= profile)
+    context = {"s_friends": suggested_friends}
+    return render(request,"chatapp/suggestions.html" ,context)
