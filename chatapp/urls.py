@@ -10,7 +10,7 @@ urlpatterns = [
  path("logout/" , views.signout, name="logout"),
  path("suggestions/" , views.suggestions, name="suggestions"),
  
- 
+ path("send-request/" , views.sendFriendRequest , name="send-request"),
  
  
 ]

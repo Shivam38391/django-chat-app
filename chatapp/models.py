@@ -16,3 +16,12 @@ class Profile(models.Model):
     def __str__(self):
         return self.username
 
+
+class FriendRequest(models.Model):
+    
+    sender = models.ForeignKey(User, on_delete=models.CASCADE , related_name="sent_requests") # sender is the logged in user
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE , related_name="received_request") # receiver is the that clicked upon
+    seen = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.sender.username} sents a request to {self.receiver.username}"
