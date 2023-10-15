@@ -81,7 +81,10 @@ def suggestions(request):
     profile = Profile.objects.get(user=user)
     profile_friends = profile.friends.all()
     suggested_friends = all_user.objects.exclude(profile__friends__in =profile_friends ).exclude(profiles= profile)
-    context = {"s_friends": suggested_friends}
+    
+    friend_requests = FriendRequest.objects.filter(receiver__in = suggested_friends , sender = request.user)
+    
+    context = {"s_friends": suggested_friends , "f_requests": friend_requests}
     return render(request,"chatapp/suggestions.html" ,context)
 
 

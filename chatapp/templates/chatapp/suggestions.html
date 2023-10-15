@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
-
+{% load custom_filter %}
 
 {% block content %}
 
@@ -80,12 +80,28 @@
             <h5>{{ friend.username }}</h5>
             <p class="small mb-1 text-muted">200 folowers</p>
             <!-- here i definf custom id data-id -->
+
+            {% if friend.id|if_id_in_queryset:f_requests %}
+              
+
+            <button type="button" data-id=" {{ friend.id }}" disabled="true" class="btn btn-primary position-relative disable add-btn">
+                Request sented
+            </button>
+            <button type="button" class="btn btn-secondary position-relative remove-btn ">
+                cancel Request
+            </button>
+
+            {% else %}
+
             <button type="button" data-id=" {{ friend.id }}" class="btn btn-primary position-relative  add-btn">
                 Add friend
             </button>
             <button type="button" class="btn btn-secondary position-relative remove-btn ">
                 Remove
             </button>
+
+            {% endif %}
+
         </div>
     </div>
     <br>
@@ -102,7 +118,7 @@
 <!-- logic of geting id of individual friend -->
 <script>
 
-    async function postJSON(data) {
+    async function postJSON(data , indBtn) {
         let url = "{% url 'send-request' %}"
         try {
             const options = {
@@ -117,6 +133,16 @@
           const response = await fetch(url , options );
           const result = await response.json();
           console.log("Success:", result);
+
+
+          indBtn.innerText = "Request sent"
+          indBtn.classList.add("disable");
+          indBtn.setAttribute("disabled", "true");
+          indBtn.nextElementSibling.style.fontsize = "13px"
+
+          indBtn.nextElementSibling.innerText = "Cancel request"
+
+
         } catch (error) {
           console.error("Error:", error);
         }
@@ -134,8 +160,10 @@
 
     function sendFriendRequest(e) {
         console.log(e.target);
+//individual button that we clicked
+        indBtn = e.target
         const data = e.target.dataset.id //this will give value of id
-        postJSON(data);
+        postJSON(data, indBtn);
 
     }
 
