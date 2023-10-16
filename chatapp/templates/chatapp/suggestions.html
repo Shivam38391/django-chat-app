@@ -16,51 +16,7 @@
 
 
 
-<div class="card-header d-flex justify-content-between align-items-center p-3">
-
-    <button type="button" class="btn btn-primary position-relative ">
-        <span class="material-symbols-outlined">
-            notifications
-        </span>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            99+
-            <span class="visually-hidden">unread messages</span>
-        </span>
-    </button>
-
-
-
-    <a href="{% url 'suggestions' %}">
-        <button type="button" class="btn btn-primary position-relative ">
-            <span class="material-symbols-outlined">
-                group_add
-            </span>
-        </button>
-    </a>
-
-
-    <button type="button" class="btn btn-primary position-relative ">
-        <span class="material-symbols-outlined">
-            diversity_3
-        </span>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            99+
-            <span class="visually-hidden">unread messages</span>
-        </span>
-    </button>
-    <button type="button" class="btn btn-primary position-relative ">
-        <span class="material-symbols-outlined">
-            logout
-        </span>
-    </button>
-
-    <button type="button" class="btn btn-primary position-relative ">
-        <span class="material-symbols-outlined">
-            notifications
-        </span>
-    </button>
-</div>
-
+{% include "chatapp/includes/navigation-bar.html" %}
 
 
 <div class="card-body" data-mdb-perfect-scrollbar="true" style=" overflow-y:scroll; position: relative; height: 400px">
@@ -99,9 +55,8 @@
     <br>
     {% endfor %}
 </div>
-<div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
 
-</div>
+{% include "chatapp/includes/footer-navigation.html" %}
 
 
 

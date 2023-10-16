@@ -14,57 +14,15 @@
 
 
 
-<div class="card-header d-flex justify-content-between align-items-center p-3">
-    <button type="button" class="btn btn-primary position-relative ">
-        <span class="material-symbols-outlined">
-            notifications
-        </span>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            99+
-            <span class="visually-hidden">unread messages</span>
-        </span>
-    </button>
-
-
-
-    <a href="{% url 'suggestions' %}">
-        <button type="button" class="btn btn-primary position-relative ">
-            <span class="material-symbols-outlined">
-                group_add
-            </span>
-        </button>
-    </a>
-
-
-    <button type="button" class="btn btn-primary position-relative ">
-        <span class="material-symbols-outlined">
-            diversity_3
-        </span>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            99+
-            <span class="visually-hidden">unread messages</span>
-        </span>
-    </button>
-    <button type="button" class="btn btn-primary position-relative ">
-        <span class="material-symbols-outlined">
-            logout
-        </span>
-    </button>
-
-    <button type="button" class="btn btn-primary position-relative ">
-        <span class="material-symbols-outlined">
-            notifications
-        </span>
-    </button>
-</div>
+{% include "chatapp/includes/navigation-bar.html" %}
 
 
 
 <div class="card-body" data-mdb-perfect-scrollbar="true" style=" overflow-y:scroll; position: relative; height: 400px">
 
 
-    {% for fri_request in f_requests  %}
-      
+    {% for fri_request in f_requests %}
+
 
     <div class="d-flex justify-content-between p-2 border rounded">
         <div class="row align-items-center">
@@ -77,7 +35,8 @@
             <h5>{{fri_request.sender.username}}</h5>
             <p class="small mb-1 text-muted">200 folowers</p>
             <!-- here i definf custom id data-id -->
-            <button type="button" data-id="{{ fri_request.sender.id }}" class="btn btn-primary position-relative  confirm-btn">
+            <button type="button" data-id="{{ fri_request.sender.id }}"
+                class="btn btn-primary position-relative  confirm-btn">
                 Confirm
             </button>
             <button type="button" class="btn btn-secondary position-relative remove-btn ">
@@ -102,62 +61,51 @@
 <!-- logic of geting id of individual friend -->
 <script>
 
-   
+
     async function postJSON(data, btn) {
         let url = "{% url 'accept-request' %}"
         let options = {
             method: "POST", // or 'PUT'
             headers: {
-              "Content-Type": "application/json",
-                          //django crsftoken
-              'X-CSRFToken': csrftoken,
+                "Content-Type": "application/json",
+                //django crsftoken
+                'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify(data),
-          }
+        }
 
         try {
-          const response = await fetch(url, options);
-          const result = await response.json();
-          console.log("Success:", result);
-          if(result== "Yes"){
-            btn.innerText = "Confirmed"
-            btn.classList.add("disabled");
-            btn.nextElementSibling.classList.add("disable");
-          }
-    
-    
+            const response = await fetch(url, options);
+            const result = await response.json();
+            console.log("Success:", result);
+            if (result == "Yes") {
+                btn.innerText = "Confirmed"
+                btn.classList.add("disabled");
+                btn.nextElementSibling.classList.add("disable");
+            }
+
+
         } catch (error) {
-          console.error("Error:", error);
+            console.error("Error:", error);
         }
-      }
+    }
 
-let confBtns = document.querySelectorAll(".confirm-btn")
-for( let btn of confBtns){
-    btn.addEventListener("click", addFriend)
-    
-}
+    let confBtns = document.querySelectorAll(".confirm-btn")
+    for (let btn of confBtns) {
+        btn.addEventListener("click", addFriend)
 
-
-
-  
-
-
-function addFriend(e){
-    console.log(e.target);
-
-    let data = e.target.dataset.id
-    let btn = e.target
-    postJSON(data, btn);
-}
+    }
 
 
 
 
 
-
-
-
-
+    function addFriend(e) {
+        console.log(e.target);
+        let data = e.target.dataset.id
+        let btn = e.target
+        postJSON(data, btn);
+    }
 
 
 

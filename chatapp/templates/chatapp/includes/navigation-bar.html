@@ -1,0 +1,48 @@
+<div class="card-header d-flex justify-content-between align-items-center p-3">
+    <button type="button" class="btn btn-primary position-relative ">
+        <span class="material-symbols-outlined">
+            notifications
+        </span>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            99+
+            <span class="visually-hidden">unread messages</span>
+        </span>
+    </button>
+
+
+
+    <a href="{% url 'suggestions' %}">
+        <button type="button" class="btn btn-primary position-relative ">
+            <span class="material-symbols-outlined">
+                group_add
+            </span>
+        </button>
+    </a>
+
+
+    <a href="{% url 'friend-request' %}">
+        <button type="button" class="btn btn-primary position-relative ">
+            <span class="material-symbols-outlined">
+                diversity_3
+            </span>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                99+
+                <span class="visually-hidden">unread messages</span>
+            </span>
+        </button>
+    </a>
+
+    <a href="{% url 'logout' %}">
+        <button type="button" class="btn btn-primary position-relative ">
+            <span class="material-symbols-outlined">
+                logout
+            </span>
+        </button>
+    </a>
+
+    <button type="button" class="btn btn-primary position-relative ">
+        <span class="material-symbols-outlined">
+            notifications
+        </span>
+    </button>
+</div>
