@@ -98,3 +98,44 @@ def sendFriendRequest(request):
     print(data)# id of users
     friend_request = FriendRequest.objects.create(sender = request.user, receiver= receiver)
     return JsonResponse("it is runing ", safe= False)
+
+
+
+
+
+def friend_request(request):
+    user = request.user
+    friend_requests = FriendRequest.objects.filter(receiver= user)
+    context = {"f_requests": friend_requests}
+    return render(request, "chatapp/friend_request.html", context)
+
+
+def accept_friend_request(request):
+    id = json.loads(request.body)
+    user_id = id
+    user= get_user_model()
+    n_user = user.objects.get(id = user_id)
+    profile = Profile.objects.get(user_id = request.user.id)
+    profile2 = Profile.objects.get(user_id = user_id)
+    msg = None
+    
+    if profile:
+        
+        if profile.friends.filter(id = user_id).exists():
+            profile.friends.remove(n_user)
+            msg = "No"
+            
+        else:
+            profile.friends.add(n_user)
+            msg = "Yes"
+    
+    
+    if profile2:
+        if profile2.friends.filter(id= request.user.id).exists():
+            profile2.friends.remove(request.user)
+            
+        else:
+            profile2.friends.add(request.user)
+    
+    
+    return JsonResponse(msg, safe=False)

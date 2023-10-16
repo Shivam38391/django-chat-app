@@ -11,6 +11,9 @@ urlpatterns = [
  path("suggestions/" , views.suggestions, name="suggestions"),
  
  path("send-request/" , views.sendFriendRequest , name="send-request"),
+ path("friend-request/" , views.friend_request , name="friend-request"),
+ path("accept-request/" , views.accept_friend_request , name="accept-request"),
+ 
  
  
 ]
