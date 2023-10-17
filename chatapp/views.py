@@ -1,13 +1,14 @@
 import json
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from .models import FriendRequest, Profile
+from .models import FriendRequest, Profile, Notification
 from .forms import ProfileForm, UserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required(login_url="login")
 def index(request):
     return render(request, "chatapp/index.html")
 
@@ -57,7 +58,7 @@ def signout(request):
     return redirect('login')
 
 
-
+@login_required(login_url="login")
 def update(request):
     if not request.user.is_authenticated:
         return redirect("login")
@@ -74,7 +75,7 @@ def update(request):
     return render(request, "chatapp/update-profile.html", context )
 
 
-
+@login_required(login_url="login")
 def suggestions(request):
     all_user = get_user_model()
     user = request.user
@@ -87,7 +88,7 @@ def suggestions(request):
     context = {"s_friends": suggested_friends , "f_requests": friend_requests}
     return render(request,"chatapp/suggestions.html" ,context)
 
-
+@login_required(login_url="login")
 def sendFriendRequest(request):
     
     # data comming from the front end
@@ -102,14 +103,14 @@ def sendFriendRequest(request):
 
 
 
-
+@login_required(login_url="login")
 def friend_request(request):
     user = request.user
     friend_requests = FriendRequest.objects.filter(receiver= user)
     context = {"f_requests": friend_requests}
     return render(request, "chatapp/friend_request.html", context)
 
-
+@login_required(login_url="login")
 def accept_friend_request(request):
     id = json.loads(request.body)
     user_id = id
@@ -117,6 +118,7 @@ def accept_friend_request(request):
     n_user = user.objects.get(id = user_id)
     profile = Profile.objects.get(user_id = request.user.id)
     profile2 = Profile.objects.get(user_id = user_id)
+    f_request = FriendRequest.objects.get(sender= n_user, receiver = request.user)
     msg = None
     
     if profile:
@@ -127,6 +129,11 @@ def accept_friend_request(request):
             
         else:
             profile.friends.add(n_user)
+            f_request.delete()
+            Notification.objects.create(sender = request.user, receiver= n_user, 
+                                        description = f"Hi , {request.user.username} accepted your request.")
+            
+            
             msg = "Yes"
     
     

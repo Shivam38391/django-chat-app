@@ -25,3 +25,23 @@ class FriendRequest(models.Model):
 
     def __str__(self):
         return f"{self.sender.username} sents a request to {self.receiver.username}"
+
+
+
+
+
+class Notification(models.Model):
+    
+    sender = models.ForeignKey(User , on_delete=models.CASCADE , related_name="sender_notification")
+    receiver = models.ForeignKey(User , on_delete=models.CASCADE , related_name="receiver_notification")
+    description = models.TextField(blank=True , null=True)
+    created = models.DateTimeField( auto_now_add=True , blank=True, null=True)
+    seen = models.BooleanField(default=False)
+    
+    class Meta:
+        ordering = ["-created"]
+    
+    
+
+    def __str__(self):
+        return f"Hi {self.sender.username}  accepted your friend request"
